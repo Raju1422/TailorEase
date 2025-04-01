@@ -9,7 +9,7 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'role', 'phone','password',"confirm_password")
-        
+
     def validate(self, data):
         if data['password'] != data['confirm_password']:
             raise ValidationError("Passwords do not match.")
@@ -25,3 +25,7 @@ class SignupSerializer(serializers.ModelSerializer):
             phone=validated_data['phone']
         )
         return user
+    
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
